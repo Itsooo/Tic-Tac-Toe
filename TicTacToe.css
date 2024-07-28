@@ -40,14 +40,18 @@ td {
     height: 100%;
 } */
 
+table {
+    border-spacing: 0px;
+}
+
 #line {
     width: 300px;
     height: 4px;
     background-color: black;
     position: absolute ;
-    /* top: 0px; */
-    /* left: 0px; */
-    transform-origin: 25px 50%;
+    top: 0px;
+    left: 0px;
+    transform-origin: -4px 50%;
     
     display: none;
 }
@@ -56,4 +60,5 @@ td > button {
     width: 100px;
     height: 100px;
     font-size: 46px;
+    border: 0px;
 }

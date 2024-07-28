@@ -75,21 +75,27 @@ function drawLine(lookData) {
     let line = document.querySelector("#line")
 console.log(lookData)
     // line.style.transform = `translate(${lookData[0] * 100}px, ${lookData[1] * 100}px)`
-    line.style.top = lookData[1] * 100 + "px"
-    line.style.left = lookData[0] * 100 + "px"
     line.style.display = "inherit"
 
     console.log(lookData)
     let x = lookData[2][0]
     let y = lookData[2][1]
 
+    // TODO: switch case
+
     if (x == 0 && y == 1) {
-        console.log("bruh")
-        line.style.transform = ' rotate("90deg")'
+        line.style.transform = `translate(${lookData[0] * 100 + 50}px, 0px) rotate(90deg)`
+        line.style.width = 300 + "px"
+        console.log(line.style.transform)
     } else if (x == 1 && y == 1) {
-        line.style.transform = ' rotate("45deg")'
+        line.style.transform = `translate(0px, 0px) rotate(45deg)`
+        line.style.width = 300 * Math.sqrt(2) + "px"
     } else if (x == 1 && y == -1) {
-        line.style.transform = ' rotate("-45deg")'
+        line.style.transform = `translate(0px, 300px) rotate(-45deg)`
+        line.style.width = 300 * Math.sqrt(2) + "px"
+    } else {
+        line.style.transform = `translate(0px, ${lookData[1] * 100 + 50}px)`
+        line.style.width = 300 + "px"
     }
 }
 
