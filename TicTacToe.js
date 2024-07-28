@@ -16,19 +16,24 @@ function changeScreen(switchTo) {
     } 
 
     confirmButton.style.display = switchTo == "inGame" ? "none" : "inherit"
-    if (switchTo == "end") {
-        // let gameButtons = document.getElementsByClassName("tic")
-        // for (let button of gameButtons) {
-        //     button.innerHTML = ""
-        // }
-        // for (let y = 0; totalMoves.length; y++) {
-        //     for (let x = 0; totalMoves[y].length; x++) {
-        //         totalMoves[y][x] = ""
-        //     }
-        // }
 
-        document.querySelector("#inGame").style.display =  "inherit"
-        confirmButton.innerHTML = "Play Again?"
+    switch (switchTo) {
+        case "inGame":
+            let gameButtons = document.getElementsByClassName("tic")
+            for (let button of gameButtons) {
+                button.innerHTML = ""
+            }
+            for (let y = 0; y < totalMoves.length; y++) {
+                for (let x = 0; x < totalMoves[y].length; x++) {
+                    totalMoves[y][x] = ""
+                }
+            }
+
+            document.querySelector("#line").style.display = "none";
+        case "end":
+            document.querySelector("#inGame").style.display =  "inherit"
+            confirmButton.innerHTML = "Play Again?"
+            break
     }
 }
 
@@ -100,6 +105,8 @@ console.log(lookData)
 }
 
 function change(x, y, text) {
+    if (totalMoves[y][x]) return false;
+
     totalMoves[y][x] = text
     gameTable.children[y].children[x].querySelector("button").innerHTML = text
 
@@ -108,10 +115,16 @@ function change(x, y, text) {
     if (winner == p1Symbol) {
         drawLine(lookData)
         changeScreen("end")
+
+        return false
     } else if (winner == p2Symbol) {
         drawLine(lookData)
         changeScreen("end")
+
+        return false
     }
+
+    return true
 }
 
 let p1Symbol = "X"
@@ -128,8 +141,9 @@ function doMove() {
 }
 
 function handleInput(x, y) {
-    change(x, y, p1Symbol)
-    doMove()
+    if (change(x, y, p1Symbol)) {
+        doMove()
+    }
 }
 
 function init() {
