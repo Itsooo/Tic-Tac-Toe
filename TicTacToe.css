@@ -1,0 +1,59 @@
+.center {
+    color: black;
+    text-align: center;
+    margin: auto;
+    width: 100%;
+}
+
+.canvas {
+    margin: auto;
+    width: 30%;
+}
+
+#wrapper {
+    width: 300px;
+    height: 300px;
+    margin: auto;
+    position: relative;
+}
+
+table {
+    width: 100%;
+    height: 100%;
+}
+
+#inGame {
+    display: none;
+}
+
+#end {
+    display: none;
+}
+
+/* tr {
+    width: 100%;
+    height: 33%;
+}
+
+td {
+    width: 33%;
+    height: 100%;
+} */
+
+#line {
+    width: 300px;
+    height: 4px;
+    background-color: black;
+    position: absolute ;
+    /* top: 0px; */
+    /* left: 0px; */
+    transform-origin: 25px 50%;
+    
+    display: none;
+}
+
+td > button {
+    width: 100px;
+    height: 100px;
+    font-size: 46px;
+}

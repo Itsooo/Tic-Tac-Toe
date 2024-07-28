@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="TicTacToe.css">
+        <title>Tic Tac Toe</title>
+    </head>
+    <body>
+        <div class="canvas">
+            <h1 class="center">Tic tac toe!</h1>
+
+            <div class="gameWindow" id="start">
+                <p class="center"><br> Want to play tic tac toe?</p>
+                <br>
+            </div>
+            <div class="gameWindow" id="inGame">
+                <div id="wrapper">
+                    <table>
+                        <tbody id="gameTable">
+                        </tbody>
+                    </table>
+                    <div id="line"></div>
+                </div>
+            </div>
+            <div class="gameWindow" id="end">
+                <p class="center"><br> Game over!</p>
+                <br>
+            </div>
+
+            <button class="center" id="confirmButton" onclick="confirm()">sure!</button>
+            
+        </div>
+
+
+        <script src="TicTacToe.js"></script>
+    </body>
+</html>
