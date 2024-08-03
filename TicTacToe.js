@@ -7,6 +7,7 @@ let totalMoves = [
     ["", "", ""]
 ]
 let moveCount = 0
+let currentScreen = ""
 
 function changeScreen(switchTo) {
     let gameWindows = document.getElementsByClassName("gameWindow")
@@ -18,6 +19,7 @@ function changeScreen(switchTo) {
 
     confirmButton.style.display = switchTo == "inGame" ? "none" : "inherit"
 
+    currentScreen = switchTo
     switch (switchTo) {
         case "inGame":
             let gameButtons = document.getElementsByClassName("tic")
@@ -107,7 +109,7 @@ console.log(lookData)
 }
 
 function change(x, y, text) {
-    if (totalMoves[y][x]) return false;
+    if (totalMoves[y][x] || currentScreen == "end") return false;
     moveCount += 1
 
     totalMoves[y][x] = text
