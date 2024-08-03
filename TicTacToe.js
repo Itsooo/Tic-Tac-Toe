@@ -6,6 +6,7 @@ let totalMoves = [
     ["", "", ""],
     ["", "", ""]
 ]
+let moveCount = 0
 
 function changeScreen(switchTo) {
     let gameWindows = document.getElementsByClassName("gameWindow")
@@ -28,6 +29,7 @@ function changeScreen(switchTo) {
                     totalMoves[y][x] = ""
                 }
             }
+            moveCount = 0
 
             document.querySelector("#line").style.display = "none";
         case "end":
@@ -66,14 +68,14 @@ const lineLookUp = [
     [0, 2, [1, -1]],
 ]
 
-function calculateWinnder() {
+function calculateWinner() {
     for (lookData of lineLookUp) {
         let symbolFound = getLine(lookData[0], lookData[1], lookData[2])
         
         if (symbolFound) return [symbolFound, lookData];
     }
 
-    return [false, false]
+    return [moveCount == 9 ? "Draw" : false, false]
 }
 
 function drawLine(lookData) {
@@ -106,11 +108,12 @@ console.log(lookData)
 
 function change(x, y, text) {
     if (totalMoves[y][x]) return false;
+    moveCount += 1
 
     totalMoves[y][x] = text
     gameTable.children[y].children[x].querySelector("button").innerHTML = text
 
-    let [winner, lookData] = calculateWinnder()
+    let [winner, lookData] = calculateWinner()
     console.log(winner + " won!")
     if (winner == p1Symbol) {
         drawLine(lookData)
@@ -121,6 +124,9 @@ function change(x, y, text) {
         drawLine(lookData)
         changeScreen("end")
 
+        return false
+    } else if (winner == "Draw") {
+        changeScreen("end")
         return false
     }
 
