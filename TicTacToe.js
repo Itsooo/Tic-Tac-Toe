@@ -9,6 +9,9 @@ let totalMoves = [
 let moveCount = 0
 let currentScreen = ""
 
+let p1Symbol = "X"
+let p2Symbol = "O"
+
 function changeScreen(switchTo) {
     let gameWindows = document.getElementsByClassName("gameWindow")
 
@@ -69,6 +72,8 @@ const lineLookUp = [
     [0, 0, [1, 1]],
     [0, 2, [1, -1]],
 ]
+
+function 
 
 function calculateWinner() {
     for (lookData of lineLookUp) {
@@ -135,8 +140,6 @@ function change(x, y, text) {
     return true
 }
 
-let p1Symbol = "X"
-let p2Symbol = "O"
 
 function doMove() {
     for (let y = 0; y < 3; y++) {
