@@ -6,6 +6,11 @@ let totalMoves = [
     ["", "", ""],
     ["", "", ""]
 ]
+let moveCount = 0
+let currentScreen = ""
+
+let p1Symbol = "X"
+let p2Symbol = "O"
 
 function changeScreen(switchTo) {
     let gameWindows = document.getElementsByClassName("gameWindow")
@@ -16,19 +21,26 @@ function changeScreen(switchTo) {
     } 
 
     confirmButton.style.display = switchTo == "inGame" ? "none" : "inherit"
-    if (switchTo == "end") {
-        // let gameButtons = document.getElementsByClassName("tic")
-        // for (let button of gameButtons) {
-        //     button.innerHTML = ""
-        // }
-        // for (let y = 0; totalMoves.length; y++) {
-        //     for (let x = 0; totalMoves[y].length; x++) {
-        //         totalMoves[y][x] = ""
-        //     }
-        // }
 
-        document.querySelector("#inGame").style.display =  "inherit"
-        confirmButton.innerHTML = "Play Again?"
+    currentScreen = switchTo
+    switch (switchTo) {
+        case "inGame":
+            let gameButtons = document.getElementsByClassName("tic")
+            for (let button of gameButtons) {
+                button.innerHTML = ""
+            }
+            for (let y = 0; y < totalMoves.length; y++) {
+                for (let x = 0; x < totalMoves[y].length; x++) {
+                    totalMoves[y][x] = ""
+                }
+            }
+            moveCount = 0
+
+            document.querySelector("#line").style.display = "none";
+        case "end":
+            document.querySelector("#inGame").style.display =  "inherit"
+            confirmButton.innerHTML = "Play Again?"
+            break
     }
 }
 
@@ -61,14 +73,16 @@ const lineLookUp = [
     [0, 2, [1, -1]],
 ]
 
-function calculateWinnder() {
+function 
+
+function calculateWinner() {
     for (lookData of lineLookUp) {
         let symbolFound = getLine(lookData[0], lookData[1], lookData[2])
         
         if (symbolFound) return [symbolFound, lookData];
     }
 
-    return [false, false]
+    return [moveCount == 9 ? "Draw" : false, false]
 }
 
 function drawLine(lookData) {
@@ -100,22 +114,32 @@ console.log(lookData)
 }
 
 function change(x, y, text) {
+    if (totalMoves[y][x] || currentScreen == "end") return false;
+    moveCount += 1
+
     totalMoves[y][x] = text
     gameTable.children[y].children[x].querySelector("button").innerHTML = text
 
-    let [winner, lookData] = calculateWinnder()
+    let [winner, lookData] = calculateWinner()
     console.log(winner + " won!")
     if (winner == p1Symbol) {
         drawLine(lookData)
         changeScreen("end")
+
+        return false
     } else if (winner == p2Symbol) {
         drawLine(lookData)
         changeScreen("end")
+
+        return false
+    } else if (winner == "Draw") {
+        changeScreen("end")
+        return false
     }
+
+    return true
 }
 
-let p1Symbol = "X"
-let p2Symbol = "O"
 
 function doMove() {
     for (let y = 0; y < 3; y++) {
@@ -128,8 +152,9 @@ function doMove() {
 }
 
 function handleInput(x, y) {
-    change(x, y, p1Symbol)
-    doMove()
+    if (change(x, y, p1Symbol)) {
+        doMove()
+    }
 }
 
 function init() {
